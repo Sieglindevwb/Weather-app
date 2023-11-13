@@ -14,7 +14,14 @@
 let geoLocation = ('https://geocoding-api.open-meteo.com/v1/search?name=Canberra&count=10&language=en&format=json');
 
 async function getGeoLocation(){
+    // Use fetch to make the API request
+    let response = await fetch(geoLocation);
 
+    // Use response.json() to parse the response body as JSON
+    let data = await response.json();
+
+    // Now you can work with the parsed JSON datav
+    console.log(data);
 }
 
 function createFormWithInputAndButton(labelText, buttonLabel) {
@@ -54,5 +61,7 @@ return form;
 let form = createFormWithInputAndButton("Choose city");
 console.log("City input created:", form);
 
+
+// TODO: Use an api to get the weather data for at least the next 5 days
 
 
