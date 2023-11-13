@@ -49,5 +49,9 @@ return form;
 let cityInput = createFormWithInputAndButton("Choose city");
 console.log("City input created:", cityInput);
 
+const form = createFormWithInputAndButton("form");
 
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+});
 
