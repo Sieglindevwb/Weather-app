@@ -21,17 +21,17 @@ function createFormWithInputAndButton(labelText, buttonLabel) {
     //create form
     let form = document.createElement("form");
 
-    //create p element
+    //create h1 element
     let label = document.createElement("h1");
     label.textContent = labelText;
     form.appendChild(label);
-    console.log("label");
+    console.log("label:", labelText);
     
     // Create input element
     let input = document.createElement("input");
     input.setAttribute("type", "text");
     form.appendChild(input);
-    console.log("geoLocation");
+    console.log("input created");
 
     // create submit button
     let submitButton = document.createElement("button")
@@ -40,18 +40,19 @@ function createFormWithInputAndButton(labelText, buttonLabel) {
     form.appendChild(submitButton);
 
     document.body.appendChild(form);
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log("City input created:", input.value);
+    });
     
  // Return the input element in case you want to do further operations with it
 return form;
 }
 
 // Example usage
-let cityInput = createFormWithInputAndButton("Choose city");
-console.log("City input created:", cityInput);
+let form = createFormWithInputAndButton("Choose city");
+console.log("City input created:", form);
 
-const form = createFormWithInputAndButton("form");
 
-form.addEventListener("submit", (event) => {
-    event.preventDefault();
-});
 
