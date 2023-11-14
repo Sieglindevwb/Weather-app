@@ -23,7 +23,7 @@ async function getGeoData(cityName){
 }
 
 async function getWeatherData(location) {
-    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+ location.latitude +'&longitude='+ location.longitude + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall');
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+ location.latitude +'&longitude='+ location.longitude + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_clear_sky_max,precipitation_sum&timezone=Europe%2FLondon');
     const data = await response.json();
     console.log('Weather Data Response:', data);
     return data;
@@ -39,11 +39,30 @@ function updateWeatherDisplay(weather) {
     const temperatureElement = document.querySelector('#temperature');
     const conditionsElement = document.querySelector('#conditions');
     const descriptionElement = document.querySelector('#description');
+    const dailyForecastElement = document.querySelector('#daily-forecast');
 
     // Update the content of the selected elements
     temperatureElement.textContent = 'Temperature: ' + temperature + '°C';
     conditionsElement.textContent = conditions;
     descriptionElement.textContent = description;
+
+      // Update the daily forecast information
+      const dailyForecastData = weather.daily;
+
+      // Clear existing content in the daily forecast element
+      dailyForecastElement.innerHTML = '';
+  
+      // Iterate over each day in the forecast data
+      dailyForecastData.time.forEach((day, index) => {
+          const date = new Date(day);
+          const dayElement = document.createElement('div');
+  
+          // Display date, max and min temperatures, and precipitation
+          dayElement.textContent = `${date.toDateString()}: Max ${dailyForecastData.temperature_2m_max[index]}°C, Min ${dailyForecastData.temperature_2m_min[index]}°C, Precipitation ${dailyForecastData.precipitation_sum[index]}mm`;
+  
+          // Append day element to the daily forecast container
+          dailyForecastElement.appendChild(dayElement);
+        })
 }
 
 async function startWeatherApp(){
