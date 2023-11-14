@@ -17,13 +17,33 @@ const inputField = document.querySelector('#cityName');
 async function getGeoData(cityName){
     const response = await fetch('https://geocoding-api.open-meteo.com/v1/search?name=' + cityName + '&count=10&language=en&format=json');
     const data = await response.json();
+    console.log(data);
+    console.log(data.results[0]);
     return data.results[0];
 }
 
 async function getWeatherData(location) {
-    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+ location.latitude +'&longitude='+ location.longitude)
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+ location.latitude +'&longitude='+ location.longitude + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall');
     const data = await response.json();
+    console.log('Weather Data Response:', data);
     return data;
+}
+
+function updateWeatherDisplay(weather) {
+
+    const temperature = weather.current.temperature_2m;
+    const conditions = "Conditions: " + (weather.current.precipitation > 0 ? "Rainy" : "Clear");  // Example condition check
+    const description = "Description: " + (weather.current.precipitation > 0 ? "It's raining" : "Clear sky");  // Example description
+
+    // Select the HTML elements where you want to display weather information
+    const temperatureElement = document.querySelector('#temperature');
+    const conditionsElement = document.querySelector('#conditions');
+    const descriptionElement = document.querySelector('#description');
+
+    // Update the content of the selected elements
+    temperatureElement.textContent = 'Temperature: ' + temperature + '°C';
+    conditionsElement.textContent = conditions;
+    descriptionElement.textContent = description;
 }
 
 async function startWeatherApp(){
@@ -35,16 +55,8 @@ async function startWeatherApp(){
     if (geo) {
         const weather = await getWeatherData(geo);
 
-         // Log the entire weather object to inspect its structure
-         console.log('Full Weather Data:', weather);
-
-        const currentTemperature = weather.current_weather.temperature;
-        const conditions = weather.current_weather.conditions;
-        const description = weather.current_weather.description; 
-        // Now you can work with the weather data
-        console.log('current temperature: ' + currentTemperature + '°C');
-        console.log('conditions: ' + conditions);
-        console.log('Description: ' + description);
+        // Update the HTML elements with weather information
+        updateWeatherDisplay(weather);
     } else {
         console.error('Error fetching geo-location data');
     }
