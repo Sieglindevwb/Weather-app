@@ -11,7 +11,7 @@
 // })
 //   .then((response) => response.json())
 //   .then((json) => console.log(json));
-let geoLocation = ('https://geocoding-api.open-meteo.com/v1/search?name=Canberra&count=10&language=en&format=json');
+let geoLocation = ('https://geocoding-api.open-meteo.com/v1/search');
 
 async function getGeoLocation(){
     // Use fetch to make the API request
