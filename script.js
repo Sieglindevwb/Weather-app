@@ -33,40 +33,59 @@ async function getWeatherData(location) {
 }
 
 function updateWeatherDisplay(weather) {
-
     const temperature = weather.current.temperature_2m;
-    const description = "Description: " + (weather.current.precipitation > 0 ? "It's raining" : "Clear sky");  
-
+    const description =
+      "Description: " +
+      (weather.current.precipitation > 0 ? "It's raining" : "Clear sky");
+  
     // Select the HTML elements where you want to display weather information
     const temperatureElement = document.querySelector('#temperature');
     const descriptionElement = document.querySelector('#description');
     const dailyForecastElement = document.querySelector('#daily-forecast');
-
+    const iconElement = document.querySelector('#weather-icon');
+  
     // Update the content of the selected elements
     temperatureElement.textContent = 'Temperature: ' + temperature + '°C';
     descriptionElement.textContent = description;
 
+    // Get the weather icon URL
+    const weatherIcon = getWeatherIcon(weather.current.precipitation);
+
+    // Set the weather icon
+    iconElement.src = weatherIcon;
+  
     // Update the daily forecast information
     const dailyForecastData = weather.daily;
-
+  
     // Clear existing content in the daily forecast element
     dailyForecastElement.innerHTML = '';
   
     // Iterate over each day in the forecast data
     dailyForecastData.time.forEach((day, index) => {
-        const date = new Date(day);
-        const dayElement = document.createElement('div');
+      const date = new Date(day);
+      const dayElement = document.createElement('div');
+  
+      // Display date, max and min temperatures, and precipitation
+      dayElement.textContent =
+        date.toDateString() +
+        ': Max ' +
+        dailyForecastData.temperature_2m_max[index] +
+        '°C, Min ' +
+        dailyForecastData.temperature_2m_min[index] +
+        '°C, Precipitation ' +
+        dailyForecastData.precipitation_sum[index] +
+        'mm';
+  
+      // Append day element and icon to the daily forecast container
+      dailyForecastElement.appendChild(dayElement);
+    });
+}
 
-        // Display date, max and min temperatures, and precipitation
-        dayElement.textContent = 
-        date.toDateString() + ': Max ' +
-        dailyForecastData.temperature_2m_max[index] + '°C, Min ' +
-        dailyForecastData.temperature_2m_min[index] + '°C, Precipitation ' +
-        dailyForecastData.precipitation_sum[index] + 'mm';
-
-        // Append day element to the daily forecast container
-        dailyForecastElement.appendChild(dayElement);
-    })
+function getWeatherIcon(precipitation) {
+    // Assuming that you have an icon URL for rainy and clear weather
+    return precipitation > 0
+        ? './icons/rain.gif'
+        : './icons/sun.gif';
 }
 
 async function startWeatherApp(){
