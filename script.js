@@ -47,10 +47,8 @@ function updateWeatherDisplay(weather) {
     descriptionElement.textContent = description;
 
     // Get the weather icon URL
-    const weatherIcon = getWeatherIcon(weather.current.weather_code);
-
-    // Set the weather icon
-    iconElement.src = weatherIcon;
+    const currentWeatherIcon = getWeatherIcon(weather.current.weather_code);
+    iconElement.src = currentWeatherIcon;
   
     // Update the daily forecast information
     const dailyForecastData = weather.daily;
@@ -78,8 +76,17 @@ function updateWeatherDisplay(weather) {
         const precipitationParagraph = document.createElement('p');
         precipitationParagraph.textContent = 'Precipitation ' + dailyForecastData.precipitation_sum[index] + 'mm';
 
+        // Create an img element for the daily forecast icon
+        const iconElement = document.createElement('img');
+        iconElement.classList.add('daily-weather-icon');
+
+        // Get the weather icon URL for the daily forecast
+        const dailyForecastIcon = getWeatherIcon(dailyForecastData.weather_code[index], false);
+        iconElement.src = dailyForecastIcon;
+
         // Append paragraphs to the daily forecast item
         dayElement.appendChild(dateParagraph);
+        dayElement.appendChild(iconElement);
         dayElement.appendChild(maxTemperatureParagraph);
         dayElement.appendChild(minTemperatureParagraph);
         dayElement.appendChild(precipitationParagraph);
@@ -92,10 +99,8 @@ function updateWeatherDisplay(weather) {
 // Map weather codes to detailed descriptions
 const descriptions = {
     0: 'Clear sky',
-    1: 'Mainly clear',
     2: 'Partly cloudy',
     3: 'Cloudy',
-    4: 'Overcast',
     10: 'Fog',
     45: 'Fog, thunderstorm',
     60: 'Light rain shower',
@@ -109,15 +114,18 @@ function getWeatherDescription(weatherCode) {
     return descriptions[weatherCode] || 'Unknown';
 }
 
-function getWeatherIcon(weatherCode) {
+function getWeatherIcon(weatherCode, isCurrentWeather = true) {
     // Assuming that you have icons for different weather conditions
     const description = descriptions[weatherCode];
 
+   if (isCurrentWeather) {
     switch (description) {
         case 'Clear sky':
             return './icons/sun.gif';
         case 'Partly cloudy':
             return './icons/cloudy.gif';
+        case 'Cloudy':
+            return './icons/clouds.gif';
         case 'Fog':
             return './icons/foggy.gif'
         case 'Fog, thunderstorm':
@@ -125,12 +133,26 @@ function getWeatherIcon(weatherCode) {
         case 'Light rain shower':
             return './icons/lightRain.gif';
         case 'Rain shower':
-            return './icons/RainShower.gif';
+            return './icons/heavyRain.gif';
         case 'Heavy rain shower':
             return './icons/heavyRain.gif';
         default:
-            return './icons/unknown.gif';
+            return './icons/cloud.gif';
     }
+} else {
+    // For daily forecast, use PNG icons
+    switch (description) {
+        case 'Clear sky':
+            return './icons/clear-sky.png';
+        case 'Rain shower':
+            return './icons/rainsky.png';
+        case 'Partly cloudy':
+            return './icons/sun-sky.png';
+        // ... other cases for daily forecast
+        default:
+            return './icons/cloudy-sky.png';
+    }
+}
 }
 
 async function startWeatherApp(){

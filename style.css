@@ -51,7 +51,7 @@ button, input {
   padding: 10px;
   margin: 10px;
   width: 150px;
-  height: 150px; /* Set a fixed height for the items */
+  height: 19vh; /* Set a fixed height for the items */
   overflow: auto; /* Add overflow for cases where content exceeds the height */
   }
 
@@ -67,6 +67,11 @@ button, input {
   
   #weather-icon {
   width: 20vw; 
+}
+
+.daily-weather-icon {
+  width: 3vw;
+  padding: 20px
 }
   
 @media (max-width: 700px) {
