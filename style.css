@@ -5,6 +5,11 @@ body {
   text-align: center;
 }
 
+h1 {
+  color: rgb(2, 211, 211);
+  margin-top: 40px;
+}
+
 #app-container {
   text-align: center;
   }
@@ -14,6 +19,13 @@ button, input {
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px; /* Add margin to separate elements */
+  }
+
+button:hover {
+  box-shadow: 4px -4px rgb(2, 211, 211);
+  background-color: rgb(78, 78, 78);
+  color: #ffffff;
+  border: rgb(78, 78, 78);
   }
 
 #city {
@@ -51,7 +63,7 @@ button, input {
   padding: 10px;
   margin: 10px;
   width: 150px;
-  height: 19vh; /* Set a fixed height for the items */
+  height: 20vh; /* Set a fixed height for the items */
   overflow: auto; /* Add overflow for cases where content exceeds the height */
   }
 
@@ -86,5 +98,14 @@ button, input {
   .day-forecast {
     width: 100%;
     margin-bottom: 10px;
+  }
+
+  .daily-forecast-item {
+    height: 30vh;
+  }
+
+  .daily-weather-icon {
+    width: 6vw;
+    padding: 10px
   }
 }
