@@ -26,7 +26,7 @@ async function getGeoData(cityName){
 }
 
 async function getWeatherData(location) {
-    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+ location.latitude +'&longitude='+ location.longitude + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_clear_sky_max,precipitation_sum&timezone=Europe%2FLondon');
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+ location.latitude +'&longitude='+ location.longitude + '&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,rain,showers,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Europe%2FLondon&forecast_days=3');
     const data = await response.json();
     console.log('Weather Data Response:', data);
     return data;
@@ -34,9 +34,7 @@ async function getWeatherData(location) {
 
 function updateWeatherDisplay(weather) {
     const temperature = weather.current.temperature_2m;
-    const description =
-      "Description: " +
-      (weather.current.precipitation > 0 ? "It's raining" : "Clear sky");
+    const description = getWeatherDescription(weather.current.weather_code);
   
     // Select the HTML elements where you want to display weather information
     const temperatureElement = document.querySelector('#temperature');
@@ -45,11 +43,11 @@ function updateWeatherDisplay(weather) {
     const iconElement = document.querySelector('#weather-icon');
   
     // Update the content of the selected elements
-    temperatureElement.textContent = 'Temperature: ' + temperature + '°C';
+    temperatureElement.textContent = temperature + '°C';
     descriptionElement.textContent = description;
 
     // Get the weather icon URL
-    const weatherIcon = getWeatherIcon(weather.current.precipitation);
+    const weatherIcon = getWeatherIcon(weather.current.weather_code);
 
     // Set the weather icon
     iconElement.src = weatherIcon;
@@ -91,11 +89,48 @@ function updateWeatherDisplay(weather) {
     });
 }
 
-function getWeatherIcon(precipitation) {
-    // Assuming that you have an icon URL for rainy and clear weather
-    return precipitation > 0
-        ? './icons/rain.gif'
-        : './icons/sun.gif';
+// Map weather codes to detailed descriptions
+const descriptions = {
+    0: 'Clear sky',
+    1: 'Mainly clear',
+    2: 'Partly cloudy',
+    3: 'Cloudy',
+    4: 'Overcast',
+    10: 'Fog',
+    45: 'Fog, thunderstorm',
+    60: 'Light rain shower',
+    61: 'Rain shower',
+    63: 'Heavy rain shower',
+};
+
+function getWeatherDescription(weatherCode) {
+
+    // Return the description for the given weather code, default to 'Unknown'
+    return descriptions[weatherCode] || 'Unknown';
+}
+
+function getWeatherIcon(weatherCode) {
+    // Assuming that you have icons for different weather conditions
+    const description = descriptions[weatherCode];
+
+    switch (description) {
+        case 'Clear sky':
+            return './icons/sun.gif';
+        case 'Partly cloudy':
+            return './icons/cloudy.gif';
+        case 'Fog':
+            return './icons/foggy.gif'
+        case 'Fog, thunderstorm':
+            return './icons/Thunderstorm.gif';
+        case 'Light rain shower':
+            return './icons/lightRain.gif';
+        case 'Rain shower':
+            return './icons/RainShower.gif';
+        case 'Heavy rain shower':
+            return './icons/heavyRain.gif';
+        default:
+            return './icons/unknown.gif';
+    }
 }
 
 async function startWeatherApp(){
