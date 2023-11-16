@@ -111,10 +111,10 @@ async function startWeatherApp(){
         updateWeatherDisplay(weather);
         document.getElementById('daily-forecast').style.display = 'flex';
          // Select all elements with the class 'daily-forecast-item'
-         const forecastItems = document.querySelectorAll('.daily-forecast-item');
+        const forecastItems = document.querySelectorAll('.daily-forecast-item');
 
          // Loop through each item and set its display style
-         forecastItems.forEach(item => {
+        forecastItems.forEach(item => {
              item.style.display = 'flex';
          });
     } else {

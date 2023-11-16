@@ -35,11 +35,9 @@ button, input {
   display:none;
   flex-direction: row; /* Change to column to stack items vertically */
   align-items: center; /* Optional: Center items horizontally */
-  justify-content: space-around;
+  justify-content: center;
   padding: 20px;
   margin-top: 20px;
-  background: rgb(0,143,193);
-  background: linear-gradient(90deg, rgba(0,143,193,1) 0%, rgba(92,205,255,1) 43%, rgba(193,254,247,1) 100%);
 }
   
 .daily-forecast-item {
@@ -47,15 +45,15 @@ button, input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: rgb(222, 222, 223);
+  box-shadow: 8px -10px rgb(2, 211, 211);
   border-radius: 8px;
   padding: 10px;
   margin: 10px;
   width: 150px;
   height: 150px; /* Set a fixed height for the items */
   overflow: auto; /* Add overflow for cases where content exceeds the height */
-  align-items: center;
-   }
+  }
 
 .daily-forecast-item p {
   margin: 5px 0; /* Add margin between paragraphs */
