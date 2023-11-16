@@ -62,22 +62,32 @@ function updateWeatherDisplay(weather) {
   
     // Iterate over each day in the forecast data
     dailyForecastData.time.forEach((day, index) => {
-      const date = new Date(day);
-      const dayElement = document.createElement('div');
-  
-      // Display date, max and min temperatures, and precipitation
-      dayElement.textContent =
-        date.toDateString() +
-        ': Max ' +
-        dailyForecastData.temperature_2m_max[index] +
-        '°C, Min ' +
-        dailyForecastData.temperature_2m_min[index] +
-        '°C, Precipitation ' +
-        dailyForecastData.precipitation_sum[index] +
-        'mm';
-  
-      // Append day element and icon to the daily forecast container
-      dailyForecastElement.appendChild(dayElement);
+        const date = new Date(day);
+        // Inside the loop where you create daily forecast items
+        const dayElement = document.createElement('div');
+        dayElement.classList.add('daily-forecast-item');
+
+        // Create separate paragraphs for each piece of information
+        const dateParagraph = document.createElement('p');
+        dateParagraph.textContent = date.toDateString();
+
+        const maxTemperatureParagraph = document.createElement('p');
+        maxTemperatureParagraph.textContent = 'Max ' + dailyForecastData.temperature_2m_max[index] + '°C';
+
+        const minTemperatureParagraph = document.createElement('p');
+        minTemperatureParagraph.textContent = 'Min ' + dailyForecastData.temperature_2m_min[index] + '°C';
+
+        const precipitationParagraph = document.createElement('p');
+        precipitationParagraph.textContent = 'Precipitation ' + dailyForecastData.precipitation_sum[index] + 'mm';
+
+        // Append paragraphs to the daily forecast item
+        dayElement.appendChild(dateParagraph);
+        dayElement.appendChild(maxTemperatureParagraph);
+        dayElement.appendChild(minTemperatureParagraph);
+        dayElement.appendChild(precipitationParagraph);
+
+        // Append the daily forecast item to the daily forecast container
+        dailyForecastElement.appendChild(dayElement);
     });
 }
 
@@ -99,6 +109,14 @@ async function startWeatherApp(){
 
         // Update the HTML elements with weather information
         updateWeatherDisplay(weather);
+        document.getElementById('daily-forecast').style.display = 'flex';
+         // Select all elements with the class 'daily-forecast-item'
+         const forecastItems = document.querySelectorAll('.daily-forecast-item');
+
+         // Loop through each item and set its display style
+         forecastItems.forEach(item => {
+             item.style.display = 'flex';
+         });
     } else {
         console.error('Error fetching geo-location data');
     }
