@@ -152,9 +152,9 @@ function getWeatherIcon(weatherCode, isCurrentWeather = true) {
         case 'Fog', 'Depositing rime fog':
             return './icons/foggy.gif'
         case 'Light drizzle', 'Moderate drizzle','Dense drizzle':
-            return './icons/drizzle.gif'
+            return './icons/drizzle.gif';
         case 'Light freezing drizzle','Dense freezing drizzle','Light freezing rain','heavy freezing rain':
-            return './icons/freezing-drizzle.gif'
+            return './icons/freezing-drizzle.gif';
         case 'Thunderstorm','Thunderstorm with hail','Thunderstorm with heavy hail':
             return './icons/Thunderstorm.gif';
         case 'Light rain shower':
@@ -172,12 +172,23 @@ function getWeatherIcon(weatherCode, isCurrentWeather = true) {
     // For daily forecast, use PNG icons
     switch (description) {
         case 'Clear sky':
-            return './icons/clear-sky.png';
-        case 'Rain shower':
-            return './icons/rainsky.png';
-        case 'Partly cloudy':
             return './icons/sun-sky.png';
-        // ... other cases for daily forecast
+        case 'Mainly clear','Partly cloudy':
+            return './icons/clear-sky.png';
+        case 'Rain showers','Heavy rain shower','Medium rain showers','Voilent rain showers':
+            return './icons/rainsky.png';
+        case 'Overcast':
+            return './icons/cloudy-sky.png';
+        case 'Fog', 'Depositing rime fog':
+            return './icons/fog-sky.png';
+        case 'Light drizzle', 'Moderate drizzle','Dense drizzle':
+            return './icons/drizzle-sky.png';
+        case 'Light freezing drizzle','Dense freezing drizzle','Light freezing rain','heavy freezing rain':
+            return './icons/freezing-sky.png';
+        case 'Thunderstorm','Thunderstorm with hail','Thunderstorm with heavy hail':
+            return './icons/thunderstorm-sky.png';
+        case 'Snow fall','Moderate snow fall','Heavy snow fall', 'Snow showers','Heavy snow showers','Snow grains':
+            return './icons/snow-sky.png';
         default:
             return './icons/cloudy-sky.png';
     }
