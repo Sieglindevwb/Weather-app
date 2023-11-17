@@ -1,3 +1,6 @@
+// Import the descriptions object from weatherDescriptions.js
+import { descriptions } from './waetherDescription';
+
 const button = document.querySelector(".submitCityName");
 const inputField = document.querySelector('#cityName');
 
