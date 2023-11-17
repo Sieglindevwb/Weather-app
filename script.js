@@ -102,14 +102,33 @@ function updateWeatherDisplay(weather) {
 // Map weather codes to detailed descriptions
 const descriptions = {
     0: 'Clear sky',
+    1: 'Mainly clear',
     2: 'Partly cloudy',
-    3: 'Cloudy',
-    10: 'Fog',
-    45: 'Fog, thunderstorm',
-    60: 'Light rain shower',
-    61: 'Rain shower',
-    63: 'Heavy rain shower',
-    71: 'Snow fall'
+    3: 'Overcast',
+    48: 'Fog',
+    45: 'Depositing rime fog',
+    51: 'Light drizzle',
+    53: 'Moderate drizzle',
+    55: 'Dense drizzle',
+    56: 'Light freezing drizzle',
+    57: 'Dense freezing drizzle',
+    61: 'Light rain shower',
+    63: 'Rain showers',
+    65: 'Heavy rain shower',
+    66: 'Light freezing rain',
+    67: 'heavy freezing rain',
+    71: 'Snow fall',
+    73: 'Moderate snow fall',
+    75: 'Heavy snow fall',
+    77: 'Snow grains',
+    80: 'Rain showers',
+    81: 'Medium rain showers',
+    82: 'Voilent rain showers',
+    85: 'Snow showers',
+    86: 'Heavy snow showers',
+    95: 'Thunderstorm',
+    96: 'Thunderstorm with hail',
+    99: 'Thunderstorm with heavy hail'
 };
 
 function getWeatherDescription(weatherCode) {
@@ -126,22 +145,26 @@ function getWeatherIcon(weatherCode, isCurrentWeather = true) {
     switch (description) {
         case 'Clear sky':
             return './icons/sun.gif';
-        case 'Partly cloudy':
+        case 'Mainly clear','Partly cloudy':
             return './icons/cloudy.gif';
-        case 'Cloudy':
+        case 'Overcast':
             return './icons/clouds.gif';
-        case 'Fog':
+        case 'Fog', 'Depositing rime fog':
             return './icons/foggy.gif'
-        case 'Fog, thunderstorm':
+        case 'Light drizzle', 'Moderate drizzle','Dense drizzle':
+            return './icons/drizzle.gif'
+        case 'Light freezing drizzle','Dense freezing drizzle','Light freezing rain','heavy freezing rain':
+            return './icons/freezing-drizzle.gif'
+        case 'Thunderstorm','Thunderstorm with hail','Thunderstorm with heavy hail':
             return './icons/Thunderstorm.gif';
         case 'Light rain shower':
             return './icons/lightRain.gif';
-        case 'Rain shower':
+        case 'Rain showers','Heavy rain shower','Medium rain showers','Voilent rain showers':
             return './icons/heavyRain.gif';
-        case 'Heavy rain shower':
-            return './icons/heavyRain.gif';
-        case 'Snow fall':
-            return './snow.gif';
+        case 'Snow fall','Moderate snow fall','Heavy snow fall', 'Snow showers','Heavy snow showers':
+            return './icons/snow.gif';
+        case 'Snow grains':
+            return './icons/snowgrains.gif';
         default:
             return './icons/cloud.gif';
     }
