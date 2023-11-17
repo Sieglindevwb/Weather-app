@@ -99,6 +99,7 @@ button:hover {
   .day-forecast {
     width: 100%;
     margin-bottom: 10px;
+    padding: 0;
   }
 
   .daily-forecast-item {
