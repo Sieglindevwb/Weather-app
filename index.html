@@ -9,7 +9,6 @@
 <body id="app-container">
     <h1>Choose a city</h1>
     <form>
-        <label for="labelText"></label>
         <input type="text" id="cityName" placeholder="City">
         <button type="submit" class="submitCityName">Submit</button>
     </form>
@@ -18,19 +17,13 @@
 
     <h2 id="city"></h2>
 
-    <div id="weather-container" class="day-forecast">
+    <section id="weather-container" class="day-forecast">
         <p id="temperature"></p>
         <p id="description"></p>
-    </div>
+    </section>
 
-    <div id="daily-forecast" class="daily-forecast">
-        <div class="daily-forecast-item">
-            <p class="date"></p>
-            <p class="max-temperature"></p>
-            <p class="min-temperature"></p>
-            <p class="precipitation"></p>
-        </div>
-    </div>
+    <section id="daily-forecast" class="daily-forecast">
+    </section>
     <script src="./script.js"></script>
 </body>
 </html>

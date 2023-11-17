@@ -63,7 +63,7 @@ button:hover {
   padding: 10px;
   margin: 10px;
   width: 150px;
-  height: 20vh; /* Set a fixed height for the items */
+  height: 40vh; /* Set a fixed height for the items */
   overflow: auto; /* Add overflow for cases where content exceeds the height */
   }
 
@@ -101,7 +101,7 @@ button:hover {
   }
 
   .daily-forecast-item {
-    height: 30vh;
+    height: 40vh;
   }
 
   .daily-weather-icon {
