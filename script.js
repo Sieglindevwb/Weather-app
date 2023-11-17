@@ -113,7 +113,7 @@ const descriptions = {
     56: 'Light freezing drizzle',
     57: 'Dense freezing drizzle',
     61: 'Light rain shower',
-    63: 'Rain showers',
+    63: 'Rain shower',
     65: 'Heavy rain shower',
     66: 'Light freezing rain',
     67: 'heavy freezing rain',
@@ -159,7 +159,7 @@ function getWeatherIcon(weatherCode, isCurrentWeather = true) {
             return './icons/Thunderstorm.gif';
         case 'Light rain shower':
             return './icons/lightRain.gif';
-        case 'Rain showers','Heavy rain shower','Medium rain showers','Voilent rain showers':
+        case 'Rain showers','Rain shower','Heavy rain shower','Medium rain showers','Voilent rain showers':
             return './icons/heavyRain.gif';
         case 'Snow fall','Moderate snow fall','Heavy snow fall', 'Snow showers','Heavy snow showers':
             return './icons/snow.gif';
